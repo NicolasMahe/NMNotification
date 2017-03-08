@@ -1,0 +1,32 @@
+PODS:
+  - NMLocalize (0.0.5)
+  - NMNotification (0.0.1):
+    - NMLocalize
+    - PromiseKit (~> 4.1)
+  - PromiseKit (4.1.3):
+    - PromiseKit/Foundation (= 4.1.3)
+    - PromiseKit/QuartzCore (= 4.1.3)
+    - PromiseKit/UIKit (= 4.1.3)
+  - PromiseKit/CorePromise (4.1.3)
+  - PromiseKit/Foundation (4.1.3):
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (4.1.3):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (4.1.3):
+    - PromiseKit/CorePromise
+
+DEPENDENCIES:
+  - NMNotification (from `../`)
+
+EXTERNAL SOURCES:
+  NMNotification:
+    :path: ../
+
+SPEC CHECKSUMS:
+  NMLocalize: b1c438b13a57ca905ed95df00c567e2ed1e36662
+  NMNotification: ad363a9483f91cbea99518c4363b0024c639d1dd
+  PromiseKit: 56baec63efa89210c023260879435a5a6b3bff00
+
+PODFILE CHECKSUM: fd82fac7ec7d6784754f527a572e85d1d2bc5641
+
+COCOAPODS: 1.1.1

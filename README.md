@@ -20,9 +20,18 @@ it, simply add the following line to your Podfile:
 pod "NMNotification"
 ```
 
+Then if you use the default `not activated popup`, please add those translation to your app and fell free to modify them:
+
+```
+notification.popup.not_authorized.title = "Notifications unauthorized";
+notification.popup.not_authorized.message = "You need to authorize the notifications in Settings";
+notification.popup.not_authorized.go_to_settings = "Go to Settings";
+notification.popup.not_authorized.cancel = "Cancel";
+```
+
 ## Author
 
-nicolas@mahe.me, nicolas@mahe.me
+Nicolas Mahé, nicolas@mahe.me
 
 ## License
 
