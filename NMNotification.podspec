@@ -8,7 +8,7 @@ Easier API to manage Notification on iOS
 
   s.homepage         = 'https://github.com/NicolasMahe/NMNotification'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'nicolas@mahe.me' => 'nicolas@mahe.me' }
+  s.author           = { 'Nicolas Mahé' => 'nicolas@mahe.me' }
   s.source           = { :git => 'https://github.com/NicolasMahe/NMNotification.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
