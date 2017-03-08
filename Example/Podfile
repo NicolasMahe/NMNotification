@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'NMNotification_Example' do
+  pod 'NMNotification', :path => '../'
+
+  target 'NMNotification_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
