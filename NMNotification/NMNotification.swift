@@ -190,4 +190,13 @@ public class NMNotification: NSObject {
     }
   }
   
+  //----------------------------------------------------------------------------
+  // MARK: - Badge
+  //----------------------------------------------------------------------------
+  
+  public class func resetBadge() {
+    UIApplication.shared.applicationIconBadgeNumber = 0
+  }
+  
+  
 }
