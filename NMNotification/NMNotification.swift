@@ -135,9 +135,10 @@ public class NMNotification: NSObject {
   //----------------------------------------------------------------------------
   
   public class func scheduleNotification(
-    title: String,
+    title: String?,
     body: String,
-    identifier: String
+    identifier: String,
+    badge: Int?
   ) -> Promise<Void> {
     //check if authorized
     return self.isAuthorized(forRemoteNotification: false)
@@ -145,8 +146,13 @@ public class NMNotification: NSObject {
         if #available(iOS 10.0, *) {
           return Promise<Void> { (fulfill, reject) in
             let content = UNMutableNotificationContent()
-            content.title = title
+            if let title = title {
+              content.title = title
+            }
             content.body = body
+            if let badge = badge {
+              content.badge = NSNumber(value: badge)
+            }
             //        content.sound = UNNotificationSound.default()
             
 //            let date = date
