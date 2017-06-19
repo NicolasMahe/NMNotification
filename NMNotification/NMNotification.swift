@@ -117,7 +117,7 @@ public class NMNotification: NSObject {
   public class func authorize(
     fromController: UIViewController?,
     enableRemoteNotification: Bool
-  ) -> Promise<Void> {
+    ) -> Promise<Void> {
     return self.isAuthorized(forRemoteNotification: enableRemoteNotification)
       .recover { [weak fromController] (error: Error) -> Promise<Void> in
         return self.willAuthorize(fromController)
@@ -135,7 +135,7 @@ public class NMNotification: NSObject {
   
   private class func _authorize(
     enableRemoteNotification: Bool
-  ) -> Promise<Void> {
+    ) -> Promise<Void> {
     return Promise<Void> { (fulfill, reject) in
       if #available(iOS 10.0, *) {
         let authOptions : UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -198,12 +198,16 @@ public class NMNotification: NSObject {
   // MARK: - Schedule notif
   //----------------------------------------------------------------------------
   
-  public class func scheduleNotification(
+  /**
+   Schedule a local notification
+   */
+  public class func schedule(
     title: String?,
     body: String,
     identifier: String,
+    date: Date?,
     badge: Int?
-  ) -> Promise<Void> {
+    ) -> Promise<Void> {
     //check if authorized
     return self.isAuthorized(forRemoteNotification: false)
       .then {
@@ -217,24 +221,26 @@ public class NMNotification: NSObject {
             if let badge = badge {
               content.badge = NSNumber(value: badge)
             }
-            //        content.sound = UNNotificationSound.default()
+            //            content.sound = UNNotificationSound.default()
             
-//            let date = date
-//            let triggerDate = Calendar.current.dateComponents(
-//              [.year,.month,.day,.hour,.minute,.second],
-//              from: date
-//            )
-//            let trigger = UNCalendarNotificationTrigger(
-//              dateMatching: triggerDate,
-//              repeats: false
-//            )
+            var trigger: UNNotificationTrigger
+            if let date = date {
+              let triggerDate = Calendar.current.dateComponents(
+                [.year,.month,.day,.hour,.minute,.second],
+                from: date
+              )
+              trigger = UNCalendarNotificationTrigger(
+                dateMatching: triggerDate,
+                repeats: false
+              )
+            }
+            else {
+              trigger = UNTimeIntervalNotificationTrigger(
+                timeInterval: 1,
+                repeats: false
+              )
+            }
             
-            let trigger = UNTimeIntervalNotificationTrigger(
-              timeInterval: 1,
-              repeats: false
-            )
-            
-            let identifier = identifier
             let request = UNNotificationRequest(
               identifier: identifier,
               content: content,
@@ -252,11 +258,23 @@ public class NMNotification: NSObject {
           let notification = UILocalNotification()
           notification.alertTitle = title
           notification.alertBody = body
-//          notification.fireDate = date
+          notification.fireDate = date
+          notification.applicationIconBadgeNumber = badge ?? notification.applicationIconBadgeNumber
           UIApplication.shared.scheduleLocalNotification(notification)
           
           return Promise(value: ())
         }
+    }
+  }
+  
+  /**
+   Remove all local notification
+   */
+  public class func removeAllLocal() {
+    if #available(iOS 10.0, *) {
+      UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    } else {
+      UIApplication.shared.cancelAllLocalNotifications()
     }
   }
   
