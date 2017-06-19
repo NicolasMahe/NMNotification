@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'NMNotification'
-  s.version          = '0.0.5'
+  s.version          = '0.0.6'
   s.summary          = 'Easier way to authorize and send notification'
   s.description      = <<-DESC
 Easier API to manage Notification on iOS. Authorize and send notification.
